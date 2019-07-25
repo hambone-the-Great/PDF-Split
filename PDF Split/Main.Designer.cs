@@ -28,20 +28,110 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtSelected = new System.Windows.Forms.TextBox();
+            this.lblFile = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(33, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(366, 17);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Select or drag and drop a PDF file to password protect.";
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(497, 63);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(113, 31);
+            this.btnBrowse.TabIndex = 20;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            // 
+            // txtSelected
+            // 
+            this.txtSelected.Location = new System.Drawing.Point(133, 67);
+            this.txtSelected.Name = "txtSelected";
+            this.txtSelected.Size = new System.Drawing.Size(358, 23);
+            this.txtSelected.TabIndex = 19;
+            // 
+            // lblFile
+            // 
+            this.lblFile.AutoSize = true;
+            this.lblFile.Location = new System.Drawing.Point(33, 70);
+            this.lblFile.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblFile.Name = "lblFile";
+            this.lblFile.Size = new System.Drawing.Size(91, 17);
+            this.lblFile.TabIndex = 18;
+            this.lblFile.Text = "Selected File:";
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "Burst - Split every page into its own document",
+            "Even Pages - Split after even pages only (2,4,6,8,etc) ",
+            "Odd Pages - Split after odd pages only (1,3,5,7,etc) ",
+            "Custom - Designate your own page ranges"});
+            this.checkedListBox1.Location = new System.Drawing.Point(36, 127);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(574, 76);
+            this.checkedListBox1.TabIndex = 22;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(151, 223);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(358, 23);
+            this.textBox1.TabIndex = 24;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 226);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 17);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Custom Range:";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(760, 365);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnBrowse);
+            this.Controls.Add(this.txtSelected);
+            this.Controls.Add(this.lblFile);
+            this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "PDF Split";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox txtSelected;
+        private System.Windows.Forms.Label lblFile;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
