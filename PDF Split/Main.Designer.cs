@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.label3 = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.txtSelected = new System.Windows.Forms.TextBox();
+            this.txtFile = new System.Windows.Forms.TextBox();
             this.lblFile = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -56,13 +56,14 @@
             this.btnBrowse.TabIndex = 20;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
-            // txtSelected
+            // txtFile
             // 
-            this.txtSelected.Location = new System.Drawing.Point(133, 67);
-            this.txtSelected.Name = "txtSelected";
-            this.txtSelected.Size = new System.Drawing.Size(376, 23);
-            this.txtSelected.TabIndex = 19;
+            this.txtFile.Location = new System.Drawing.Point(133, 67);
+            this.txtFile.Name = "txtFile";
+            this.txtFile.Size = new System.Drawing.Size(376, 23);
+            this.txtFile.TabIndex = 19;
             // 
             // lblFile
             // 
@@ -76,6 +77,7 @@
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.CheckOnClick = true;
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
             "Burst - Split every page into its own document",
@@ -84,8 +86,9 @@
             "Custom - Designate your own page ranges"});
             this.checkedListBox1.Location = new System.Drawing.Point(133, 109);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(376, 94);
+            this.checkedListBox1.Size = new System.Drawing.Size(376, 76);
             this.checkedListBox1.TabIndex = 22;
+            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBox1_ItemCheck);
             // 
             // textBox1
             // 
@@ -125,7 +128,7 @@
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBrowse);
-            this.Controls.Add(this.txtSelected);
+            this.Controls.Add(this.txtFile);
             this.Controls.Add(this.lblFile);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -144,7 +147,7 @@
 
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.TextBox txtSelected;
+        private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.TextBox textBox1;
