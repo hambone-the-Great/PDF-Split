@@ -14,7 +14,23 @@ namespace PDF_Split
     {
         public Main()
         {
-            InitializeComponent();
+            InitializeComponent();            
+
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_DragEnter(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Main_DragDrop(object sender, DragEventArgs e)
+        {
+
         }
     }
 }
