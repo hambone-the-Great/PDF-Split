@@ -34,7 +34,7 @@
             this.txtFile = new System.Windows.Forms.TextBox();
             this.lblFile = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPages = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSplit = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -90,12 +90,12 @@
             this.checkedListBox1.TabIndex = 22;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBox1_ItemCheck);
             // 
-            // textBox1
+            // txtPages
             // 
-            this.textBox1.Location = new System.Drawing.Point(133, 226);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(376, 23);
-            this.textBox1.TabIndex = 24;
+            this.txtPages.Location = new System.Drawing.Point(133, 226);
+            this.txtPages.Name = "txtPages";
+            this.txtPages.Size = new System.Drawing.Size(376, 23);
+            this.txtPages.TabIndex = 24;
             // 
             // label1
             // 
@@ -103,9 +103,9 @@
             this.label1.Location = new System.Drawing.Point(15, 229);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 17);
+            this.label1.Size = new System.Drawing.Size(106, 17);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Custom Range:";
+            this.label1.Text = "Custom Pages:";
             // 
             // btnSplit
             // 
@@ -115,6 +115,7 @@
             this.btnSplit.TabIndex = 25;
             this.btnSplit.Text = "Split";
             this.btnSplit.UseVisualStyleBackColor = true;
+            this.btnSplit.Click += new System.EventHandler(this.btnSplit_Click);
             // 
             // Main
             // 
@@ -123,7 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 326);
             this.Controls.Add(this.btnSplit);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtPages);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label3);
@@ -150,7 +151,7 @@
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPages;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSplit;
     }
