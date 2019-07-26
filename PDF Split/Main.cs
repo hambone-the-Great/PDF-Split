@@ -119,29 +119,39 @@ namespace PDF_Split
         private void SplitPdf(PdfDocument docSource, Dictionary<int, List<int>> docs)
         {
             if (docSource != null)
-            {                
-                FileInfo fi = new FileInfo(docSource.FullPath);
+            {
 
-                for (int i = 0; i < docs.Count; i++)
+                try
                 {
+                    FileInfo fi = new FileInfo(docSource.FullPath);
 
-                    PdfDocument newDoc = new PdfDocument();
-                    newDoc.Info.Title = docSource.Info.Title;
-                    newDoc.Version = docSource.Version;
-                    newDoc.Info.Creator = docSource.Info.Creator;
-
-                    List<int> pages = docs[i]; 
-
-                    for (int j = 0; j < pages.Count; j++)
+                    for (int i = 0; i < docs.Count; i++)
                     {
-                        if (j < docSource.Pages.Count) newDoc.AddPage(docSource.Pages[pages[j]]);
+
+                        PdfDocument newDoc = new PdfDocument();
+                        newDoc.Info.Title = docSource.Info.Title;
+                        newDoc.Version = docSource.Version;
+                        newDoc.Info.Creator = docSource.Info.Creator;
+
+                        List<int> pages = docs[i];
+
+                        for (int j = 0; j < pages.Count; j++)
+                        {
+                            if (j < docSource.Pages.Count) newDoc.AddPage(docSource.Pages[pages[j]]);
+                        }
+
+                        newDoc.Save(Path.Combine(fi.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
                     }
 
-                    newDoc.Save(Path.Combine(fi.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
+                    MessageBox.Show("Success! Your document has been split.");
+                    ResetForm();
+                    System.Diagnostics.Process.Start(fi.DirectoryName);
+                    
                 }
-
-                MessageBox.Show("Success! Your document has been split.");
-                ResetForm();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error, please email the following message to marcus.schuff@gmail.com: " + ex.Message);
+                }
             }
         }
 
