@@ -91,6 +91,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="content\instructions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\lock.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

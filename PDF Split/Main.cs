@@ -11,6 +11,7 @@ using System.IO;
 using PdfSharp;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using System.Reflection;
 
 namespace PDF_Split
 {
@@ -25,6 +26,14 @@ namespace PDF_Split
         private void Main_Load(object sender, EventArgs e)
         {
 
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"content\instructions.txt");
+            string[] lines = File.ReadAllLines(path);
+
+            foreach (string line in lines)
+            {
+                txtInstructions.Text += line + Environment.NewLine;
+            }
+
         }
 
         private void Main_DragEnter(object sender, DragEventArgs e)
@@ -38,11 +47,14 @@ namespace PDF_Split
             
             // do something with files. 
 
-            FileInfo info = new FileInfo(files[0]);   
+            FileInfo info = new FileInfo(files[0]);   //we only want one file. 
 
             if (info.Extension == ".pdf")
             {
-                txtFile.Text = info.FullName;
+
+                PrepFile(info);
+                
+
             }
 
         }
@@ -51,26 +63,20 @@ namespace PDF_Split
         {
             OpenFileDialog diag = new OpenFileDialog();
 
-            DialogResult results = diag.ShowDialog(); 
+            DialogResult results = diag.ShowDialog();
+            FileInfo info = new FileInfo(diag.FileName);
 
             if (results == DialogResult.OK)
             {
-                txtFile.Text = diag.FileName;
+                if (info.Extension == ".pdf") PrepFile(info);
             }
-
         }
 
-        private void CheckedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
-        {            
-
-            if (e.NewValue == CheckState.Checked)
-            {
-                for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                {
-                    if (e.Index != i) checkedListBox1.SetItemChecked(i, false);
-                }
-
-            }
+        private void PrepFile(FileInfo file)
+        {
+            txtFile.Text = file.FullName;
+            PdfDocument doc = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
+            lblPageCount.Text = lblPageCount.Text + doc.Pages.Count.ToString();
         }
 
 
@@ -81,56 +87,69 @@ namespace PDF_Split
             {
 
                 PdfDocument docSource = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
-                
-                int pageCount = docSource.Pages.Count;
 
-                string[] pages = txtPages.Text.Split(',');
-                int lastPage = Convert.ToInt32(pages[pages.Length - 1]);
-                int[] pgs = new int[pages.Length + 2]; //2 more for the first and last pages of the document. 
-                pgs[0] = 1; //the first page must always be 1;
+                string[] splits = txtPages.Text.Split(',');
 
-                if (docSource.PageCount > lastPage)
+
+                Dictionary<int, List<int>> docs = new Dictionary<int, List<int>>(); 
+
+                for (int i = 0; i < splits.Length; i ++)
                 {
                     
-                    for (int i = 0; i < pages.Length; i++)
-                    {
-                        pgs[i + 1] = Convert.ToInt32(pages[i]);
+                    int start = (Convert.ToInt32(splits[i].Split('-')[0]) - 1); //PDFSharp Pages object is a zero-based index, thus we need to subtract 1 from our page numbers. 
+
+                    int end = splits[i].Contains('-') ? (Convert.ToInt32(splits[i].Split('-')[1]) - 1) : start; 
+
+                    List<int> pages = new List<int>();
+
+                    for (int j = start; j <= end; j++)
+                    {                        
+                        pages.Add(j);                        
                     }
+
+                    docs.Add(i, pages);
+
                 }
 
-                pgs[pgs.Length - 1] = pageCount;
-
-                SplitPdf(docSource, pgs);
+                SplitPdf(docSource, docs);
             }
         }
 
 
-        private void SplitPdf(PdfDocument docSource, int[] pages)
+        private void SplitPdf(PdfDocument docSource, Dictionary<int, List<int>> docs)
         {
             if (docSource != null)
-            {
-                string docName = Path.GetFileName(docSource.FullPath);
+            {                
                 FileInfo fi = new FileInfo(docSource.FullPath);
 
-                for (int i = 0; i < pages.Length; i++)
+                for (int i = 0; i < docs.Count; i++)
                 {
 
                     PdfDocument newDoc = new PdfDocument();
-
                     newDoc.Info.Title = docSource.Info.Title;
                     newDoc.Version = docSource.Version;
                     newDoc.Info.Creator = docSource.Info.Creator;
 
-                    for (int j = pages[i]; j < pages[i + 1]; j++)
+                    List<int> pages = docs[i]; 
+
+                    for (int j = 0; j < pages.Count; j++)
                     {
-                        newDoc.AddPage(docSource.Pages[j]);
+                        if (j < docSource.Pages.Count) newDoc.AddPage(docSource.Pages[pages[j]]);
                     }
 
-                    newDoc.Save(Path.Combine(fi.DirectoryName, "Page_" + i + "_" + fi.Name));
-
+                    newDoc.Save(Path.Combine(fi.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
                 }
 
+                MessageBox.Show("Success! Your document has been split.");
+                ResetForm();
             }
+        }
+
+        private void ResetForm()
+        {
+            lblPageCount.Text = "Page Count: "; 
+            txtFile.Text = string.Empty;
+            txtPages.Text = string.Empty;
         }
 
 

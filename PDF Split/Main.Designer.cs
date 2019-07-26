@@ -33,10 +33,11 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.lblFile = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.txtPages = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSplit = new System.Windows.Forms.Button();
+            this.lblPageCount = new System.Windows.Forms.Label();
+            this.txtInstructions = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // label3
@@ -75,24 +76,9 @@
             this.lblFile.TabIndex = 18;
             this.lblFile.Text = "Selected File:";
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "Burst - Split every page into its own document",
-            "Even Pages - Split after even pages only (2,4,6,8,etc) ",
-            "Odd Pages - Split after odd pages only (1,3,5,7,etc) ",
-            "Custom - Designate your own page ranges"});
-            this.checkedListBox1.Location = new System.Drawing.Point(133, 109);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(376, 76);
-            this.checkedListBox1.TabIndex = 22;
-            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBox1_ItemCheck);
-            // 
             // txtPages
             // 
-            this.txtPages.Location = new System.Drawing.Point(133, 226);
+            this.txtPages.Location = new System.Drawing.Point(133, 133);
             this.txtPages.Name = "txtPages";
             this.txtPages.Size = new System.Drawing.Size(376, 23);
             this.txtPages.TabIndex = 24;
@@ -100,16 +86,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 229);
+            this.label1.Location = new System.Drawing.Point(27, 136);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 17);
+            this.label1.Size = new System.Drawing.Size(97, 17);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Custom Pages:";
+            this.label1.Text = "Page Ranges:";
             // 
             // btnSplit
             // 
-            this.btnSplit.Location = new System.Drawing.Point(515, 222);
+            this.btnSplit.Location = new System.Drawing.Point(515, 129);
             this.btnSplit.Name = "btnSplit";
             this.btnSplit.Size = new System.Drawing.Size(113, 31);
             this.btnSplit.TabIndex = 25;
@@ -117,16 +103,37 @@
             this.btnSplit.UseVisualStyleBackColor = true;
             this.btnSplit.Click += new System.EventHandler(this.btnSplit_Click);
             // 
+            // lblPageCount
+            // 
+            this.lblPageCount.AutoSize = true;
+            this.lblPageCount.Location = new System.Drawing.Point(130, 93);
+            this.lblPageCount.Name = "lblPageCount";
+            this.lblPageCount.Size = new System.Drawing.Size(99, 17);
+            this.lblPageCount.TabIndex = 26;
+            this.lblPageCount.Text = "Page Count:  ";
+            // 
+            // txtInstructions
+            // 
+            this.txtInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtInstructions.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txtInstructions.Enabled = false;
+            this.txtInstructions.Location = new System.Drawing.Point(133, 179);
+            this.txtInstructions.Name = "txtInstructions";
+            this.txtInstructions.Size = new System.Drawing.Size(495, 135);
+            this.txtInstructions.TabIndex = 27;
+            this.txtInstructions.Text = "";
+            // 
             // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 326);
+            this.Controls.Add(this.txtInstructions);
+            this.Controls.Add(this.lblPageCount);
             this.Controls.Add(this.btnSplit);
             this.Controls.Add(this.txtPages);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtFile);
@@ -150,10 +157,11 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Label lblFile;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.TextBox txtPages;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSplit;
+        private System.Windows.Forms.Label lblPageCount;
+        private System.Windows.Forms.RichTextBox txtInstructions;
     }
 }
 
