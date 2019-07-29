@@ -45,9 +45,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(33, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(366, 17);
+            this.label3.Size = new System.Drawing.Size(277, 17);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Select or drag and drop a PDF file to password protect.";
+            this.label3.Text = "Select or drag and drop a PDF file to split.";
             // 
             // btnBrowse
             // 
