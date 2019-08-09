@@ -12,6 +12,8 @@ using PdfSharp;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System.Reflection;
+using System.Web;
+
 
 namespace PDF_Split
 {
@@ -25,15 +27,9 @@ namespace PDF_Split
 
         private void Main_Load(object sender, EventArgs e)
         {
-
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"content\instructions.txt");
-            string[] lines = File.ReadAllLines(path);
-
-            foreach (string line in lines)
-            {
-                txtInstructions.Text += line + Environment.NewLine;
-            }
-
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
+            Uri url = new Uri(path);
+            webBrowser1.Url = url;         
         }
 
         private void Main_DragEnter(object sender, DragEventArgs e)
@@ -52,8 +48,7 @@ namespace PDF_Split
             if (info.Extension == ".pdf")
             {
 
-                PrepFile(info);
-                
+                PrepFile(info);                
 
             }
 
@@ -77,6 +72,8 @@ namespace PDF_Split
             txtFile.Text = file.FullName;
             PdfDocument doc = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
             lblPageCount.Text = lblPageCount.Text + doc.Pages.Count.ToString();
+            Uri url = new Uri(txtFile.Text);
+            webBrowser1.Url = url; 
         }
 
 
@@ -162,6 +159,16 @@ namespace PDF_Split
             txtPages.Text = string.Empty;
         }
 
+        private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
 
+            FileInfo urlInfo = new FileInfo(HttpUtility.UrlDecode(e.Url.AbsolutePath));
+
+            if (urlInfo.Extension == ".pdf")
+            {                
+                PrepFile(urlInfo);
+            }
+                    
+        }
     }
 }

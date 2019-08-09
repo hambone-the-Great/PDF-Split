@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.txtInstructions = new System.Windows.Forms.RichTextBox();
             this.lblPageCount = new System.Windows.Forms.Label();
             this.btnSplit = new System.Windows.Forms.Button();
             this.txtPages = new System.Windows.Forms.TextBox();
@@ -39,22 +39,28 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.lblFile = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtInstructions);
             this.splitContainer1.Panel1.Controls.Add(this.lblPageCount);
             this.splitContainer1.Panel1.Controls.Add(this.btnSplit);
             this.splitContainer1.Panel1.Controls.Add(this.txtPages);
@@ -63,29 +69,19 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnBrowse);
             this.splitContainer1.Panel1.Controls.Add(this.txtFile);
             this.splitContainer1.Panel1.Controls.Add(this.lblFile);
+            this.splitContainer1.Panel1.Controls.Add(this.menuStrip1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(1204, 787);
-            this.splitContainer1.SplitterDistance = 507;
+            this.splitContainer1.Size = new System.Drawing.Size(510, 656);
+            this.splitContainer1.SplitterDistance = 186;
             this.splitContainer1.TabIndex = 28;
-            // 
-            // txtInstructions
-            // 
-            this.txtInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInstructions.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txtInstructions.Enabled = false;
-            this.txtInstructions.Location = new System.Drawing.Point(36, 175);
-            this.txtInstructions.Name = "txtInstructions";
-            this.txtInstructions.Size = new System.Drawing.Size(424, 568);
-            this.txtInstructions.TabIndex = 36;
-            this.txtInstructions.Text = "";
             // 
             // lblPageCount
             // 
             this.lblPageCount.AutoSize = true;
-            this.lblPageCount.Location = new System.Drawing.Point(136, 74);
+            this.lblPageCount.Location = new System.Drawing.Point(136, 98);
             this.lblPageCount.Name = "lblPageCount";
             this.lblPageCount.Size = new System.Drawing.Size(99, 17);
             this.lblPageCount.TabIndex = 35;
@@ -93,16 +89,20 @@
             // 
             // btnSplit
             // 
-            this.btnSplit.Location = new System.Drawing.Point(347, 110);
+            this.btnSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSplit.Location = new System.Drawing.Point(347, 134);
             this.btnSplit.Name = "btnSplit";
             this.btnSplit.Size = new System.Drawing.Size(113, 31);
             this.btnSplit.TabIndex = 34;
             this.btnSplit.Text = "Split";
             this.btnSplit.UseVisualStyleBackColor = true;
+            this.btnSplit.Click += new System.EventHandler(this.btnSplit_Click);
             // 
             // txtPages
             // 
-            this.txtPages.Location = new System.Drawing.Point(139, 114);
+            this.txtPages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPages.Location = new System.Drawing.Point(139, 138);
             this.txtPages.Name = "txtPages";
             this.txtPages.Size = new System.Drawing.Size(202, 23);
             this.txtPages.TabIndex = 33;
@@ -110,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 117);
+            this.label1.Location = new System.Drawing.Point(33, 141);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 17);
@@ -120,7 +120,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 9);
+            this.label3.Location = new System.Drawing.Point(39, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(277, 17);
             this.label3.TabIndex = 31;
@@ -128,16 +128,20 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(347, 44);
+            this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowse.Location = new System.Drawing.Point(347, 68);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(113, 31);
             this.btnBrowse.TabIndex = 30;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
             // txtFile
             // 
-            this.txtFile.Location = new System.Drawing.Point(139, 48);
+            this.txtFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFile.Location = new System.Drawing.Point(139, 72);
             this.txtFile.Name = "txtFile";
             this.txtFile.Size = new System.Drawing.Size(202, 23);
             this.txtFile.TabIndex = 29;
@@ -145,12 +149,35 @@
             // lblFile
             // 
             this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(39, 51);
+            this.lblFile.Location = new System.Drawing.Point(39, 75);
             this.lblFile.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblFile.Name = "lblFile";
             this.lblFile.Size = new System.Drawing.Size(91, 17);
             this.lblFile.TabIndex = 28;
             this.lblFile.Text = "Selected File:";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(510, 24);
+            this.menuStrip1.TabIndex = 36;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // webBrowser1
             // 
@@ -159,18 +186,25 @@
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(693, 787);
+            this.webBrowser1.Size = new System.Drawing.Size(510, 466);
             this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.WebBrowser1_Navigating);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1204, 787);
+            this.ClientSize = new System.Drawing.Size(510, 656);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "PDF Split";
@@ -182,6 +216,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -189,7 +225,6 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.RichTextBox txtInstructions;
         private System.Windows.Forms.Label lblPageCount;
         private System.Windows.Forms.Button btnSplit;
         private System.Windows.Forms.TextBox txtPages;
@@ -199,6 +234,10 @@
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
