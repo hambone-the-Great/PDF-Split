@@ -181,6 +181,7 @@
             // 
             // webBrowser1
             // 
+            this.webBrowser1.AllowWebBrowserDrop = false;
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
@@ -195,7 +196,7 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // Main
+            // PDF_Split_Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -206,8 +207,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Main";
+            this.Name = "PDF_Split_Main";
             this.Text = "PDF Split";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PDF_Split_Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Main_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);

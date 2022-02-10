@@ -13,44 +13,57 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System.Reflection;
 using System.Web;
-
+using System.Diagnostics; 
 
 namespace PDF_Split
 {
     public partial class PDF_Split_Main : Form
     {
 
-        FileInfo OG_FilePath { get; set; }
+        private readonly string TempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Split");
+        private FileInfo OG_File { get; set; }
+        private FileInfo Temp_File { get; set; }
 
         public PDF_Split_Main(string filePath = null)
         {
             InitializeComponent();
 
-            if (filePath == null) return; 
+            if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
 
-            if (File.Exists(filePath))
-            {
-                OG_FilePath = new FileInfo(filePath);                
-            }
-
-
+            LoadFileInfo(filePath); 
 
         }
+
 
         private void Main_Load(object sender, EventArgs e)
         {
 
-            if (OG_FilePath == null)
+            if (Temp_File == null)
             {
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-                Uri url = new Uri(path);
-                webBrowser1.Url = url;
+                //Uri url = new Uri(path);
+                //webBrowser1.Url = url;
+                webBrowser1.Navigate(path);
             }
             else
             {
-                PrepFile(OG_FilePath);
+                webBrowser1.Navigate(Temp_File.FullName);
             }
         }
+
+        private void LoadFileInfo(string filePath)
+        {
+            if (filePath == null) return;
+
+            if (File.Exists(filePath))
+            {
+                OG_File = new FileInfo(filePath);
+                string newPath = Path.Combine(TempDir, OG_File.Name);
+                Temp_File = new FileInfo(newPath);
+                File.Copy(OG_File.FullName, Temp_File.FullName, true);
+            }
+        }
+
 
         private void Main_DragEnter(object sender, DragEventArgs e)
         {
@@ -60,16 +73,15 @@ namespace PDF_Split
         private void Main_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            
+
             // do something with files. 
 
-            FileInfo info = new FileInfo(files[0]);   //we only want one file. 
+            LoadFileInfo(files[0]);
 
-            if (info.Extension == ".pdf")
+            if (Temp_File.Extension == ".pdf")
             {
-
-                PrepFile(info);                
-
+                //PrepFile(Temp_File);                
+                webBrowser1.Navigate(Temp_File.FullName);
             }
 
         }
@@ -78,22 +90,25 @@ namespace PDF_Split
         {
             OpenFileDialog diag = new OpenFileDialog();
 
-            DialogResult results = diag.ShowDialog();
-            FileInfo info = new FileInfo(diag.FileName);
+            DialogResult results = diag.ShowDialog();            
+
+            LoadFileInfo(diag.FileName);
 
             if (results == DialogResult.OK)
             {
-                if (info.Extension == ".pdf") PrepFile(info);
+                if (Temp_File.Extension == ".pdf") webBrowser1.Navigate(Temp_File.FullName);
             }
         }
 
-        private void PrepFile(FileInfo file)
+        private void PrepFile()
         {
-            txtFile.Text = file.FullName;
-            PdfDocument doc = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
+            //txtFile.Text = file.FullName;
+
+            PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
             lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
-            Uri url = new Uri(txtFile.Text);
-            webBrowser1.Url = url; 
+            //Uri url = new Uri(txtFile.Text);
+            //webBrowser1.Url = url; 
+            //if (txtFile.Text != string.Empty) webBrowser1.Navigate(txtFile.Text);
         }
 
 
@@ -129,9 +144,11 @@ namespace PDF_Split
                 }
 
                 SplitPdf(docSource, docs);
+                this.DialogResult = DialogResult.OK;
 
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-                webBrowser1.Navigate(path);
+                webBrowser1.Navigate(path);                
+
             }
         }
 
@@ -160,12 +177,12 @@ namespace PDF_Split
                             if (j < docSource.Pages.Count) newDoc.AddPage(docSource.Pages[pages[j]]);
                         }
 
-                        newDoc.Save(Path.Combine(fi.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
+                        newDoc.Save(Path.Combine(OG_File.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
                     }
 
                     MessageBox.Show("Success! Your document has been split.");
                     ResetForm();
-                    System.Diagnostics.Process.Start(fi.DirectoryName);
+                    Process.Start(OG_File.DirectoryName);
                     
                 }
                 catch (Exception ex)
@@ -184,14 +201,26 @@ namespace PDF_Split
 
         private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
+            txtFile.Text = OG_File.FullName;
+            PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
+            lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
+        }
 
-            FileInfo urlInfo = new FileInfo(HttpUtility.UrlDecode(e.Url.AbsolutePath));
+        private void PDF_Split_Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                string[] files = Directory.GetFiles(this.TempDir, "*.*", SearchOption.AllDirectories);
 
-            if (urlInfo.Extension == ".pdf")
-            {                
-                PrepFile(urlInfo);
+                foreach (string file in files)
+                {
+                    if (File.Exists(file)) File.Delete(file);
+                }
             }
-                    
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
