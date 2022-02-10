@@ -1,6 +1,6 @@
 ﻿namespace PDF_Split
 {
-    partial class Main
+    partial class PDF_Split_Main
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PDF_Split_Main));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblPageCount = new System.Windows.Forms.Label();
             this.btnSplit = new System.Windows.Forms.Button();

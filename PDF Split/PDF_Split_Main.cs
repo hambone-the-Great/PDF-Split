@@ -17,19 +17,39 @@ using System.Web;
 
 namespace PDF_Split
 {
-    public partial class Main : Form
+    public partial class PDF_Split_Main : Form
     {
-        public Main()
+
+        FileInfo OG_FilePath { get; set; }
+
+        public PDF_Split_Main(string filePath = null)
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            if (filePath == null) return; 
+
+            if (File.Exists(filePath))
+            {
+                OG_FilePath = new FileInfo(filePath);                
+            }
+
+
 
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-            Uri url = new Uri(path);
-            webBrowser1.Url = url;         
+
+            if (OG_FilePath == null)
+            {
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
+                Uri url = new Uri(path);
+                webBrowser1.Url = url;
+            }
+            else
+            {
+                PrepFile(OG_FilePath);
+            }
         }
 
         private void Main_DragEnter(object sender, DragEventArgs e)
@@ -71,7 +91,7 @@ namespace PDF_Split
         {
             txtFile.Text = file.FullName;
             PdfDocument doc = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
-            lblPageCount.Text = lblPageCount.Text + doc.Pages.Count.ToString();
+            lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
             Uri url = new Uri(txtFile.Text);
             webBrowser1.Url = url; 
         }
@@ -109,6 +129,9 @@ namespace PDF_Split
                 }
 
                 SplitPdf(docSource, docs);
+
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
+                webBrowser1.Navigate(path);
             }
         }
 
