@@ -23,6 +23,7 @@ namespace PDF_Split
         private readonly string TempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Split");
         private FileInfo OG_File { get; set; }
         private FileInfo Temp_File { get; set; }
+        public bool ShowFolderAfterSplit { get; set; } = true; 
 
         public PDF_Split_Main(string filePath = null)
         {
@@ -144,10 +145,17 @@ namespace PDF_Split
                 }
 
                 SplitPdf(docSource, docs);
-                this.DialogResult = DialogResult.OK;
+                
+                this.DialogResult = DialogResult.OK;                
 
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-                webBrowser1.Navigate(path);                
+                webBrowser1.Navigate(path);
+
+
+                MessageBox.Show("Success! Your document has been split.");
+                ResetForm();
+
+                if (ShowFolderAfterSplit) Process.Start(OG_File.DirectoryName);
 
             }
         }
@@ -178,11 +186,7 @@ namespace PDF_Split
                         }
 
                         newDoc.Save(Path.Combine(OG_File.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
-                    }
-
-                    MessageBox.Show("Success! Your document has been split.");
-                    ResetForm();
-                    Process.Start(OG_File.DirectoryName);
+                    }                    
                     
                 }
                 catch (Exception ex)
