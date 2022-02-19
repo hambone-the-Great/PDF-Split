@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PdfDocument.cs" />
     <Compile Include="PDF_Split_Main.cs">
       <SubType>Form</SubType>
     </Compile>
