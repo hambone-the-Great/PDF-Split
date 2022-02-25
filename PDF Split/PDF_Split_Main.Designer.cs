@@ -42,11 +42,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -70,10 +68,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.txtFile);
             this.splitContainer1.Panel1.Controls.Add(this.lblFile);
             this.splitContainer1.Panel1.Controls.Add(this.menuStrip1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Size = new System.Drawing.Size(510, 656);
             this.splitContainer1.SplitterDistance = 186;
             this.splitContainer1.TabIndex = 28;
@@ -179,18 +173,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(510, 466);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.WebBrowser1_Navigating);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -215,7 +197,6 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -235,7 +216,6 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Label lblFile;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
