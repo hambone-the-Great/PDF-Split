@@ -42,11 +42,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.webview = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webview)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -68,6 +71,10 @@
             this.splitContainer1.Panel1.Controls.Add(this.txtFile);
             this.splitContainer1.Panel1.Controls.Add(this.lblFile);
             this.splitContainer1.Panel1.Controls.Add(this.menuStrip1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.webview);
             this.splitContainer1.Size = new System.Drawing.Size(510, 656);
             this.splitContainer1.SplitterDistance = 186;
             this.splitContainer1.TabIndex = 28;
@@ -173,6 +180,18 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // webview
+            // 
+            this.webview.CreationProperties = null;
+            this.webview.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webview.Location = new System.Drawing.Point(0, 0);
+            this.webview.Name = "webview";
+            this.webview.Size = new System.Drawing.Size(510, 466);
+            this.webview.TabIndex = 0;
+            this.webview.ZoomFactor = 1D;
+            this.webview.NavigationStarting += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs>(this.webview_NavigationStarting);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -197,10 +216,12 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Main_DragEnter);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -220,6 +241,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webview;
     }
 }
 

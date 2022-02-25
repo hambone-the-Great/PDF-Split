@@ -36,19 +36,28 @@ namespace PDF_Split
         }
 
 
-        private void Main_Load(object sender, EventArgs e)
+
+        private async Task InitializeAsync()
         {
+            await webview.EnsureCoreWebView2Async(null);            
+        }
+
+
+        private async void Main_Load(object sender, EventArgs e)
+        {
+
+            await InitializeAsync();
 
             if (Temp_File == null)
             {
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
                 //Uri url = new Uri(path);
                 //webBrowser1.Url = url;
-                webBrowser1.Navigate(path);
+                webview.Navigate(path);
             }
             else
             {
-                webBrowser1.Navigate(Temp_File.FullName);
+                webview.Navigate(Temp_File.FullName);
             }
         }
 
@@ -82,7 +91,7 @@ namespace PDF_Split
             if (Temp_File.Extension == ".pdf")
             {
                 //PrepFile(Temp_File);                
-                webBrowser1.Navigate(Temp_File.FullName);
+                webview.Navigate(Temp_File.FullName);
             }
 
         }
@@ -97,19 +106,8 @@ namespace PDF_Split
 
             if (results == DialogResult.OK)
             {
-                if (Temp_File.Extension == ".pdf") webBrowser1.Navigate(Temp_File.FullName);
+                if (Temp_File.Extension == ".pdf") webview.Navigate(Temp_File.FullName);
             }
-        }
-
-        private void PrepFile()
-        {
-            //txtFile.Text = file.FullName;
-
-            PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
-            lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
-            //Uri url = new Uri(txtFile.Text);
-            //webBrowser1.Url = url; 
-            //if (txtFile.Text != string.Empty) webBrowser1.Navigate(txtFile.Text);
         }
 
 
@@ -149,7 +147,7 @@ namespace PDF_Split
                 this.DialogResult = DialogResult.OK;                
 
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-                webBrowser1.Navigate(path);
+                webview.Navigate(path);
 
 
                 MessageBox.Show("Success! Your document has been split.");
@@ -203,12 +201,7 @@ namespace PDF_Split
             txtPages.Text = string.Empty;
         }
 
-        private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            txtFile.Text = OG_File.FullName;
-            PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
-            lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
-        }
+
 
         private void PDF_Split_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -226,5 +219,36 @@ namespace PDF_Split
                 
             }
         }
+
+        private void webview_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+        {
+            string path = string.Empty;
+            string url = e.Uri.ToString();
+
+            path = url.Contains("file:///") ? url.Replace("file:///", "") : url; 
+            
+            FileInfo fi = new FileInfo(path);
+
+            if (fi.Extension == ".pdf")
+            {
+                txtFile.Text = fi.FullName;
+                PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
+                lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
+            }
+        }
     }
+
+    public static class WebViewHelper
+    {
+
+        public static void Navigate(this Microsoft.Web.WebView2.WinForms.WebView2 webview, string path)
+        {
+            if (webview != null && webview.CoreWebView2 != null)
+            {
+                webview.CoreWebView2.Navigate(path);
+            }
+        }
+
+    }
+
 }
