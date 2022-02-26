@@ -63,9 +63,11 @@ namespace PDF_Split
         private void LoadFileInfo(string filePath)
         {
             if (filePath == null) return;
+            
+            txtFile.Text = filePath; 
 
             if (File.Exists(filePath))
-            {
+            {                
                 OG_File = new FileInfo(filePath);
                 string newPath = Path.Combine(TempDir, OG_File.Name);
                 Temp_File = new FileInfo(newPath);
@@ -98,6 +100,7 @@ namespace PDF_Split
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog diag = new OpenFileDialog();
+            diag.FileName = "PDF Documents (*.pdf)|*.pdf";
 
             DialogResult results = diag.ShowDialog();            
 
@@ -106,8 +109,7 @@ namespace PDF_Split
             if (results == DialogResult.OK)
             {
                 if (Temp_File.Extension == ".pdf")
-                {
-                    txtFile.Text = diag.FileName;
+                {                    
                     webview.Navigate(Temp_File.FullName);
                 }
             }
@@ -179,7 +181,7 @@ namespace PDF_Split
         }
     }
 
-    public static class WebViewHelper
+    static class WebViewHelper
     {
 
         public static void Navigate(this Microsoft.Web.WebView2.WinForms.WebView2 webview, string path)
