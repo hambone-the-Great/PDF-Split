@@ -84,9 +84,9 @@
             this.lblPageCount.AutoSize = true;
             this.lblPageCount.Location = new System.Drawing.Point(136, 98);
             this.lblPageCount.Name = "lblPageCount";
-            this.lblPageCount.Size = new System.Drawing.Size(99, 17);
+            this.lblPageCount.Size = new System.Drawing.Size(102, 17);
             this.lblPageCount.TabIndex = 35;
-            this.lblPageCount.Text = "Page Count:  ";
+            this.lblPageCount.Text = "Page Count: 0";
             // 
             // btnSplit
             // 

@@ -51,7 +51,8 @@ namespace PDF_Split.Tools
             {
                 string docNewPgs = docPgs[i];
                 string[] pgs = docNewPgs.Split('-');
-                PdfDocument docNew = new PdfDocument();
+                string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
+                PdfDocument docNew = new PdfDocument(savePath);
                 docNew.Info.Title = docSource.Info.Title;
                 docNew.Version = docSource.Version;
                 docNew.Info.Creator = "PDF Split";
@@ -71,8 +72,9 @@ namespace PDF_Split.Tools
                     if (j <= docSource.Pages.Count) docNew.AddPage(docSource.Pages[(j-1)]); //Pages is zero index
                 }
 
-                string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
-                docNew.Save(File.Create(savePath));
+                //string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
+                //docNew.Save(File.Create(savePath));
+                
                 docNew.Close();                
                 docs.Add(savePath);
             }
