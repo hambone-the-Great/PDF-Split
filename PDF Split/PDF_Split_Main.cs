@@ -24,7 +24,7 @@ namespace PDF_Split
         private readonly string TempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Split");
         private FileInfo OG_File { get; set; }
         private FileInfo Temp_File { get; set; }
-        public bool ShowFolderAfterSplit { get; set; } = true; 
+        public bool ShowAfterSplit { get; set; } = true; 
 
         public PDF_Split_Main(string filePath = null)
         {
@@ -119,13 +119,19 @@ namespace PDF_Split
          
             List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
-            foreach (string path in DocPaths)
+            string pregunta = "Successfully split document into " + DocPaths.Count.ToString() + " documents. Do you want to open the new documents?";
+
+            ShowAfterSplit = MessageBox.Show(pregunta, "Open Documents?", MessageBoxButtons.YesNo) == DialogResult.Yes ? true : false; 
+
+            if (ShowAfterSplit)
             {
-                Process.Start(path);
+                foreach (string path in DocPaths)
+                {
+                    Process.Start(path);
+                }
             }
 
             ResetForm(); 
-
         }
 
         private void ResetForm()
@@ -152,7 +158,7 @@ namespace PDF_Split
             }
             catch (Exception ex)
             {
-                
+                //MessageBox.Show(ex.Message);
             }
         }
 
