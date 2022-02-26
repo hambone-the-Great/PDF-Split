@@ -13,7 +13,8 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System.Reflection;
 using System.Web;
-using System.Diagnostics; 
+using System.Diagnostics;
+using PDF_Split.Tools;
 
 namespace PDF_Split
 {
@@ -106,92 +107,24 @@ namespace PDF_Split
 
             if (results == DialogResult.OK)
             {
-                if (Temp_File.Extension == ".pdf") webview.Navigate(Temp_File.FullName);
+                if (Temp_File.Extension == ".pdf")
+                {
+                    txtFile.Text = diag.FileName;
+                    webview.Navigate(Temp_File.FullName);
+                }
             }
         }
 
 
         private void btnSplit_Click(object sender, EventArgs e)
         {
+         
+            List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
-            if (!string.IsNullOrEmpty(txtFile.Text))
-            {
+            if (ShowFolderAfterSplit == true) Process.Start(txtFile.Text);
 
-                PdfDocument docSource = PdfReader.Open(txtFile.Text, PdfDocumentOpenMode.Import);
+            ResetForm(); 
 
-                string[] splits = txtPages.Text.Split(',');
-
-
-                Dictionary<int, List<int>> docs = new Dictionary<int, List<int>>(); 
-
-                for (int i = 0; i < splits.Length; i ++)
-                {
-                    
-                    int start = (Convert.ToInt32(splits[i].Split('-')[0]) - 1); //PDFSharp Pages object is a zero-based index, thus we need to subtract 1 from our page numbers. 
-
-                    int end = splits[i].Contains('-') ? (Convert.ToInt32(splits[i].Split('-')[1]) - 1) : start; 
-
-                    List<int> pages = new List<int>();
-
-                    for (int j = start; j <= end; j++)
-                    {                        
-                        pages.Add(j);                        
-                    }
-
-                    docs.Add(i, pages);
-
-                }
-
-                SplitPdf(docSource, docs);
-                
-                this.DialogResult = DialogResult.OK;                
-
-                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
-                webview.Navigate(path);
-
-
-                MessageBox.Show("Success! Your document has been split.");
-                ResetForm();
-
-                if (ShowFolderAfterSplit) Process.Start(OG_File.DirectoryName);
-
-            }
-        }
-
-
-        private void SplitPdf(PdfDocument docSource, Dictionary<int, List<int>> docs)
-        {
-            if (docSource != null)
-            {
-
-                try
-                {
-                    FileInfo fi = new FileInfo(docSource.FullPath);
-
-                    for (int i = 0; i < docs.Count; i++)
-                    {
-
-                        PdfDocument newDoc = new PdfDocument();
-                        newDoc.Info.Title = docSource.Info.Title;
-                        newDoc.Version = docSource.Version;
-                        newDoc.Info.Creator = docSource.Info.Creator;
-
-                        List<int> pages = docs[i];
-
-                        for (int j = 0; j < pages.Count; j++)
-                        {
-                            if (j < docSource.Pages.Count) newDoc.AddPage(docSource.Pages[pages[j]]);
-                        }
-
-                        newDoc.Save(Path.Combine(OG_File.DirectoryName, "split_" + (i + 1) + "_" + fi.Name));
-                    }                    
-                    
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error, please email the following message to marcus.schuff@gmail.com: " + ex.Message);
-                }
-            }
         }
 
         private void ResetForm()
@@ -231,7 +164,7 @@ namespace PDF_Split
 
             if (fi.Extension == ".pdf")
             {
-                txtFile.Text = fi.FullName;
+                //txtFile.Text = fi.FullName;
                 PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
                 lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
             }
