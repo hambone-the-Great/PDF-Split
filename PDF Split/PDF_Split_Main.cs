@@ -179,6 +179,16 @@ namespace PDF_Split
                 lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO: Create html file with the about content. navigate to that file with webview2. 
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO: Create html file with help content. navigate to that file with webview2. 
+        }
     }
 
     static class WebViewHelper
