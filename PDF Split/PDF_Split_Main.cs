@@ -100,7 +100,7 @@ namespace PDF_Split
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog diag = new OpenFileDialog();
-            diag.FileName = "PDF Documents (*.pdf)|*.pdf";
+            diag.Filter = "PDF Documents (*.pdf)|*.pdf";
 
             DialogResult results = diag.ShowDialog();            
 
