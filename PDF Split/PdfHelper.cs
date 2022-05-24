@@ -52,10 +52,11 @@ namespace PDF_Split.Tools
                 string docNewPgs = docPgs[i];
                 string[] pgs = docNewPgs.Split('-');
                 string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
+                
                 PdfDocument docNew = new PdfDocument(savePath);
                 docNew.Info.Title = docSource.Info.Title;
                 docNew.Version = docSource.Version;
-                docNew.Info.Creator = "PDF Split";
+                docNew.Info.Creator = "PDF Split by Schuff Software Company";
                 
                 string firstPageStr = pgs[0];
                 string lastPageStr = pgs.Length > 1 ? pgs[1] : firstPageStr; //if the document is only one page long, set the last page to the first page, otherwise, set the last page to the last page.                                 

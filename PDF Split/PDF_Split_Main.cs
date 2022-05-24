@@ -22,9 +22,13 @@ namespace PDF_Split
     {
 
         private readonly string TempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Split");
+        private readonly string HtmlDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html"); 
+
         private FileInfo OG_File { get; set; }
         private FileInfo Temp_File { get; set; }
         public bool ShowAfterSplit { get; set; } = true; 
+
+        
 
         public PDF_Split_Main(string filePath = null)
         {
@@ -121,24 +125,32 @@ namespace PDF_Split
          
             List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
-            string pregunta = "Successfully split document into " + DocPaths.Count.ToString() + " documents. Do you want to open the new documents?";
+            if (DocPaths.Count > 0) MessageBox.Show("PDF Split successfully.");
 
-            ShowAfterSplit = MessageBox.Show(pregunta, "Open Documents?", MessageBoxButtons.YesNo) == DialogResult.Yes ? true : false; 
+            FileInfo fi = new FileInfo(DocPaths[0]);
 
-            if (ShowAfterSplit)
-            {
-                foreach (string path in DocPaths)
-                {
-                    Process.Start(path);
-                }
-            }
+            Process.Start(fi.DirectoryName);
+
+            this.DialogResult = DialogResult.OK; 
+
+            //string pregunta = "Successfully split document into " + DocPaths.Count.ToString() + " documents. Do you want to open the new documents?";
+
+            //ShowAfterSplit = MessageBox.Show(pregunta, "Open Documents?", MessageBoxButtons.YesNo) == DialogResult.Yes ? true : false; 
+
+            //if (ShowAfterSplit)
+            //{
+            //    foreach (string path in DocPaths)
+            //    {
+            //        Process.Start(path);
+            //    }
+            //}
 
             ResetForm(); 
         }
 
         private void ResetForm()
         {
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");            
+            string path = Path.Combine(HtmlDir, @"welcome.htm");
             webview.Navigate(path);
             lblPageCount.Text = "Page Count: 0"; 
             txtFile.Text = string.Empty;
@@ -183,11 +195,13 @@ namespace PDF_Split
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //TODO: Create html file with the about content. navigate to that file with webview2. 
+            webview.Navigate(Path.Combine(HtmlDir, @"about.htm"));
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //TODO: Create html file with help content. navigate to that file with webview2. 
+            webview.Navigate(Path.Combine(HtmlDir, @"help.htm"));
         }
     }
 

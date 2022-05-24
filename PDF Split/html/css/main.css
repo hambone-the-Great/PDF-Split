@@ -1,6 +1,6 @@
 ﻿/* Main.css */
-body {
-    font-family:'Century Gothic', Calibri, Arial, sans-serif;    
+html, body, * {
+    font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
 #container {
