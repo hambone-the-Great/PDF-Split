@@ -26,6 +26,7 @@ namespace PDF_Split
 
         private FileInfo OG_File { get; set; }
         private FileInfo Temp_File { get; set; }
+        private int PageCount { get; set; }
         public bool ShowAfterSplit { get; set; } = true; 
 
         
@@ -62,6 +63,11 @@ namespace PDF_Split
             {
                 webview.Navigate(Temp_File.FullName);
             }
+
+            btnBurst.Enabled = false;
+            btnEvenPages.Enabled = false;
+            btnOddPages.Enabled = false; 
+
         }
 
         private void LoadFileInfo(string filePath)
@@ -76,6 +82,9 @@ namespace PDF_Split
                 string newPath = Path.Combine(TempDir, OG_File.Name);
                 Temp_File = new FileInfo(newPath);
                 File.Copy(OG_File.FullName, Temp_File.FullName, true);
+                btnBurst.Enabled = true;
+                btnEvenPages.Enabled = true;
+                btnOddPages.Enabled = true;
             }
         }
 
@@ -122,7 +131,7 @@ namespace PDF_Split
 
         private void btnSplit_Click(object sender, EventArgs e)
         {
-         
+
             List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
             if (DocPaths.Count > 0) MessageBox.Show("PDF Split successfully.");
@@ -132,18 +141,6 @@ namespace PDF_Split
             Process.Start(fi.DirectoryName);
 
             this.DialogResult = DialogResult.OK; 
-
-            //string pregunta = "Successfully split document into " + DocPaths.Count.ToString() + " documents. Do you want to open the new documents?";
-
-            //ShowAfterSplit = MessageBox.Show(pregunta, "Open Documents?", MessageBoxButtons.YesNo) == DialogResult.Yes ? true : false; 
-
-            //if (ShowAfterSplit)
-            //{
-            //    foreach (string path in DocPaths)
-            //    {
-            //        Process.Start(path);
-            //    }
-            //}
 
             ResetForm(); 
         }
@@ -188,7 +185,8 @@ namespace PDF_Split
             if (fi.Extension == ".pdf")
             {                
                 PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
-                lblPageCount.Text = "Page Count: " + doc.Pages.Count.ToString();
+                PageCount = doc.Pages.Count;
+                lblPageCount.Text = "Page Count: " + PageCount.ToString();                
             }
         }
 
@@ -203,6 +201,46 @@ namespace PDF_Split
             //TODO: Create html file with help content. navigate to that file with webview2. 
             webview.Navigate(Path.Combine(HtmlDir, @"help.htm"));
         }
+
+        private void btnBurst_Click(object sender, EventArgs e)
+        {
+            txtPages.Text = string.Empty;
+            for (int i = 1; i <= PageCount; i++)
+            {
+                txtPages.Text += i == PageCount ? i.ToString() : i.ToString() + ", ";
+            }
+            txtPages.Text = CleanString(txtPages.Text);
+        }
+
+        private void btnEvenPages_Click(object sender, EventArgs e)
+        {
+            txtPages.Text = string.Empty;
+            for (int i = 1; i <= PageCount; i++)
+            {
+                if (i % 2 == 0) txtPages.Text += i == PageCount ? i.ToString() : i.ToString() + ", "; 
+            }
+            txtPages.Text = CleanString(txtPages.Text);
+        }
+
+        private void btnOddPages_Click(object sender, EventArgs e)
+        {
+            txtPages.Text = string.Empty;
+            for (int i = 1; i <= PageCount; i++)
+            {
+                if (i % 2 != 0) txtPages.Text += i == PageCount ? i.ToString() : i.ToString() + ", ";
+            }
+            txtPages.Text = CleanString(txtPages.Text);
+        }
+
+        private string CleanString(string str)
+        {
+            str = str.Trim();
+            int lastCommaIndex = str.LastIndexOf(',');
+            int lastCharIndex = str.Length - 1;
+            if (lastCommaIndex == lastCharIndex) str = str.Remove(str.LastIndexOf(','));
+            return str; 
+        }
+
     }
 
     static class WebViewHelper

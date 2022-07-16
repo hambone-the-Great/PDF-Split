@@ -42,6 +42,10 @@
             this.lblHelper = new System.Windows.Forms.Label();
             this.lblPageCount = new System.Windows.Forms.Label();
             this.lblInstruct = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnBurst = new System.Windows.Forms.Button();
+            this.btnEvenPages = new System.Windows.Forms.Button();
+            this.btnOddPages = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +56,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webview)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +78,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webview);
             this.splitContainer1.Size = new System.Drawing.Size(797, 674);
-            this.splitContainer1.SplitterDistance = 231;
+            this.splitContainer1.SplitterDistance = 308;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 28;
             // 
@@ -90,20 +95,21 @@
             this.tableLayoutPanel1.Controls.Add(this.btnBrowse, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtFile, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblHelper, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lblPageCount, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblHelper, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lblPageCount, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.lblInstruct, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(797, 207);
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(797, 284);
             this.tableLayoutPanel1.TabIndex = 37;
             // 
             // label3
@@ -111,7 +117,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.label3, 3);
-            this.label3.Location = new System.Drawing.Point(3, 11);
+            this.label3.Location = new System.Drawing.Point(3, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(791, 18);
             this.label3.TabIndex = 31;
@@ -121,7 +127,7 @@
             // txtPages
             // 
             this.txtPages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPages.Location = new System.Drawing.Point(108, 131);
+            this.txtPages.Location = new System.Drawing.Point(108, 152);
             this.txtPages.Name = "txtPages";
             this.txtPages.Size = new System.Drawing.Size(581, 25);
             this.txtPages.TabIndex = 33;
@@ -129,7 +135,7 @@
             // btnSplit
             // 
             this.btnSplit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSplit.Location = new System.Drawing.Point(695, 129);
+            this.btnSplit.Location = new System.Drawing.Point(695, 150);
             this.btnSplit.Name = "btnSplit";
             this.btnSplit.Size = new System.Drawing.Size(99, 28);
             this.btnSplit.TabIndex = 34;
@@ -141,7 +147,7 @@
             // 
             this.lblFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(5, 52);
+            this.lblFile.Location = new System.Drawing.Point(5, 61);
             this.lblFile.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblFile.Name = "lblFile";
             this.lblFile.Size = new System.Drawing.Size(95, 18);
@@ -152,7 +158,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(695, 47);
+            this.btnBrowse.Location = new System.Drawing.Point(695, 56);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(99, 28);
             this.btnBrowse.TabIndex = 30;
@@ -164,7 +170,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 134);
+            this.label1.Location = new System.Drawing.Point(5, 155);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 18);
@@ -175,7 +181,7 @@
             // txtFile
             // 
             this.txtFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFile.Location = new System.Drawing.Point(108, 49);
+            this.txtFile.Location = new System.Drawing.Point(108, 58);
             this.txtFile.Name = "txtFile";
             this.txtFile.Size = new System.Drawing.Size(581, 25);
             this.txtFile.TabIndex = 29;
@@ -184,7 +190,7 @@
             // 
             this.lblHelper.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblHelper.AutoSize = true;
-            this.lblHelper.Location = new System.Drawing.Point(316, 176);
+            this.lblHelper.Location = new System.Drawing.Point(316, 250);
             this.lblHelper.Name = "lblHelper";
             this.lblHelper.Size = new System.Drawing.Size(164, 18);
             this.lblHelper.TabIndex = 36;
@@ -194,7 +200,7 @@
             // 
             this.lblPageCount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblPageCount.AutoSize = true;
-            this.lblPageCount.Location = new System.Drawing.Point(7, 176);
+            this.lblPageCount.Location = new System.Drawing.Point(7, 250);
             this.lblPageCount.Name = "lblPageCount";
             this.lblPageCount.Size = new System.Drawing.Size(90, 18);
             this.lblPageCount.TabIndex = 35;
@@ -205,12 +211,62 @@
             this.lblInstruct.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblInstruct.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lblInstruct, 3);
-            this.lblInstruct.Location = new System.Drawing.Point(132, 93);
+            this.lblInstruct.Location = new System.Drawing.Point(132, 108);
             this.lblInstruct.Name = "lblInstruct";
             this.lblInstruct.Size = new System.Drawing.Size(532, 18);
             this.lblInstruct.TabIndex = 37;
             this.lblInstruct.Text = "Enter the page numbers or page ranges you would like to split into individual doc" +
     "ument.";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.btnBurst, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnEvenPages, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnOddPages, 2, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(108, 191);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(581, 41);
+            this.tableLayoutPanel2.TabIndex = 38;
+            // 
+            // btnBurst
+            // 
+            this.btnBurst.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBurst.Location = new System.Drawing.Point(3, 3);
+            this.btnBurst.Name = "btnBurst";
+            this.btnBurst.Size = new System.Drawing.Size(187, 35);
+            this.btnBurst.TabIndex = 0;
+            this.btnBurst.Text = "Burst";
+            this.btnBurst.UseVisualStyleBackColor = true;
+            this.btnBurst.Click += new System.EventHandler(this.btnBurst_Click);
+            // 
+            // btnEvenPages
+            // 
+            this.btnEvenPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnEvenPages.Location = new System.Drawing.Point(196, 3);
+            this.btnEvenPages.Name = "btnEvenPages";
+            this.btnEvenPages.Size = new System.Drawing.Size(187, 35);
+            this.btnEvenPages.TabIndex = 1;
+            this.btnEvenPages.Text = "Even Pages";
+            this.btnEvenPages.UseVisualStyleBackColor = true;
+            this.btnEvenPages.Click += new System.EventHandler(this.btnEvenPages_Click);
+            // 
+            // btnOddPages
+            // 
+            this.btnOddPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOddPages.Location = new System.Drawing.Point(389, 3);
+            this.btnOddPages.Name = "btnOddPages";
+            this.btnOddPages.Size = new System.Drawing.Size(189, 35);
+            this.btnOddPages.TabIndex = 2;
+            this.btnOddPages.Text = "Odd Pages";
+            this.btnOddPages.UseVisualStyleBackColor = true;
+            this.btnOddPages.Click += new System.EventHandler(this.btnOddPages_Click);
             // 
             // menuStrip1
             // 
@@ -247,7 +303,7 @@
             this.webview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webview.Location = new System.Drawing.Point(0, 0);
             this.webview.Name = "webview";
-            this.webview.Size = new System.Drawing.Size(797, 435);
+            this.webview.Size = new System.Drawing.Size(797, 358);
             this.webview.TabIndex = 0;
             this.webview.ZoomFactor = 1D;
             this.webview.NavigationStarting += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs>(this.webview_NavigationStarting);
@@ -282,6 +338,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webview)).EndInit();
@@ -308,6 +365,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblHelper;
         private System.Windows.Forms.Label lblInstruct;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button btnBurst;
+        private System.Windows.Forms.Button btnEvenPages;
+        private System.Windows.Forms.Button btnOddPages;
     }
 }
 
