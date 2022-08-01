@@ -56,12 +56,12 @@ namespace PDF_Split
 
             if (Temp_File == null)
             {
-                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");                
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
                 webview.Navigate(path);
             }
             else
             {
-                webview.Navigate(Temp_File.FullName);
+                webview.Navigate(Temp_File.FullName);                              
             }
 
             btnBurst.Enabled = false;
@@ -82,9 +82,6 @@ namespace PDF_Split
                 string newPath = Path.Combine(TempDir, OG_File.Name);
                 Temp_File = new FileInfo(newPath);
                 File.Copy(OG_File.FullName, Temp_File.FullName, true);
-                btnBurst.Enabled = true;
-                btnEvenPages.Enabled = true;
-                btnOddPages.Enabled = true;
             }
         }
 
@@ -138,11 +135,12 @@ namespace PDF_Split
 
             FileInfo fi = new FileInfo(DocPaths[0]);
 
-            Process.Start(fi.DirectoryName);
-
+            if (this.ShowAfterSplit) Process.Start(fi.DirectoryName);
+            
+            ResetForm();
+            
             this.DialogResult = DialogResult.OK; 
-
-            ResetForm(); 
+            
         }
 
         private void ResetForm()
@@ -186,7 +184,10 @@ namespace PDF_Split
             {                
                 PdfDocument doc = PdfReader.Open(OG_File.FullName, PdfDocumentOpenMode.Import);
                 PageCount = doc.Pages.Count;
-                lblPageCount.Text = "Page Count: " + PageCount.ToString();                
+                lblPageCount.Text = "Page Count: " + PageCount.ToString();
+                btnBurst.Enabled = true;
+                btnEvenPages.Enabled = true;
+                btnOddPages.Enabled = true;
             }
         }
 
