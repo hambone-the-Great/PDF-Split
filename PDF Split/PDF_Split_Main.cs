@@ -168,6 +168,7 @@ namespace PDF_Split
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
 
