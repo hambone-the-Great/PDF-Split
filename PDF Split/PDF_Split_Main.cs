@@ -128,18 +128,25 @@ namespace PDF_Split
 
         private void btnSplit_Click(object sender, EventArgs e)
         {
+            try
+            {
+                List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
-            List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
+                if (DocPaths.Count > 0) MessageBox.Show("PDF Split successfully.");
 
-            if (DocPaths.Count > 0) MessageBox.Show("PDF Split successfully.");
+                FileInfo fi = new FileInfo(DocPaths[0]);
 
-            FileInfo fi = new FileInfo(DocPaths[0]);
+                if (this.ShowAfterSplit) Process.Start(fi.DirectoryName);
 
-            if (this.ShowAfterSplit) Process.Start(fi.DirectoryName);
-            
-            ResetForm();
-            
-            this.DialogResult = DialogResult.OK; 
+                ResetForm();
+
+                this.DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                this.DialogResult = DialogResult.None; 
+                MessageBox.Show(ex.Message);
+            }
             
         }
 
