@@ -37,7 +37,7 @@ namespace PDF_Split
 
             if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
 
-            LoadFileInfo(filePath); 
+            LoadFileInfo(filePath);
 
         }
 
@@ -56,7 +56,7 @@ namespace PDF_Split
 
             if (Temp_File == null)
             {
-                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\welcome.htm");
+                string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"html\split-welcome.htm");
                 webview.Navigate(path);
             }
             else
@@ -130,6 +130,9 @@ namespace PDF_Split
         {
             //touch! 
 
+            if (string.IsNullOrEmpty(txtPages.Text)) return; 
+            if (string.IsNullOrEmpty(txtFile.Text)) return;
+
             try
             {
                 List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
@@ -154,7 +157,7 @@ namespace PDF_Split
 
         private void ResetForm()
         {
-            string path = Path.Combine(HtmlDir, @"welcome.htm");
+            string path = Path.Combine(HtmlDir, @"split-welcome.htm");
             webview.Navigate(path);
             lblPageCount.Text = "Page Count: 0"; 
             txtFile.Text = string.Empty;
