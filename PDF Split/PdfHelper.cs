@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 using PdfSharp;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-using SchuffSharp.Files; 
+using SchuffSharp.Files;
+using System.Web; 
 
 namespace PDF_Split.Tools
 {
     public static class PdfHelper
     {
+
+        
+
         /// <summary>
         /// SplitPdf splits a PDF into one or multiple PDF documents. 
         /// There are two arguments for this method. 
@@ -83,7 +87,15 @@ namespace PDF_Split.Tools
             docSource.Close();
             return docs; 
         }
+
+
+
+
+
+
+
+
+
+
     }
-
-
 }
