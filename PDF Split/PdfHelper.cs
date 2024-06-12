@@ -84,7 +84,7 @@ namespace PDF_Split.Tools
                 docs.Add(savePath);
             }
 
-            docSource.Close();
+            //docSource.Close();
             return docs; 
         }
 
