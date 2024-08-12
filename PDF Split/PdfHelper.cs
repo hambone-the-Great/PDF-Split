@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using PdfSharp;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-using SchuffSharp.Files; 
+using SchuffSharp.Files;
+using System.Threading;
 
 namespace PDF_Split.Tools
 {
@@ -29,7 +30,7 @@ namespace PDF_Split.Tools
         /// <returns>A list of the new document paths.</returns>
         public static List<string> SplitPdf(string sourcePath, string pagesStr)
         {
-
+      
             if (sourcePath == null || sourcePath == string.Empty) return null;
             if (pagesStr == null || pagesStr == string.Empty) return null;
 
@@ -37,51 +38,66 @@ namespace PDF_Split.Tools
 
             if (!fi.Exists) return null;
 
-            if (fi.Extension != ".pdf") return null; 
-            
+            if (fi.Extension != ".pdf") return null;
+
 
             List<string> docs = new List<string>();
 
-            string[] docPgs = pagesStr.Split(',');            
+            string[] docPgs = pagesStr.Split(',');
             int documentCount = docPgs.Length;
 
             PdfDocument docSource = PdfReader.Open(sourcePath, PdfDocumentOpenMode.Import);
+
 
             for (int i = 0; i < documentCount; i++)
             {
                 string docNewPgs = docPgs[i];
                 string[] pgs = docNewPgs.Split('-');
                 string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
-                
+
                 PdfDocument docNew = new PdfDocument(savePath);
                 docNew.Info.Title = docSource.Info.Title;
                 docNew.Version = docSource.Version;
                 docNew.Info.Creator = "PDF Split by Schuff Software Company";
-                
+
                 string firstPageStr = pgs[0];
                 string lastPageStr = pgs.Length > 1 ? pgs[1] : firstPageStr; //if the document is only one page long, set the last page to the first page, otherwise, set the last page to the last page.                                 
 
                 int firstPage = 1;
-                int lastPage = 1; 
+                int lastPage = 1;
 
                 if (!int.TryParse(firstPageStr, out firstPage)) return null;
-                if (!int.TryParse(lastPageStr, out lastPage)) return null; 
-                
+                if (!int.TryParse(lastPageStr, out lastPage)) return null;
+
 
                 for (int j = firstPage; j <= lastPage; j++)
                 {
-                    if (j <= docSource.Pages.Count) docNew.AddPage(docSource.Pages[(j-1)]); //Pages is zero index
+                    if (j <= docSource.Pages.Count) docNew.AddPage(docSource.Pages[(j - 1)]); //Pages is zero index
                 }
 
                 //string savePath = Path.Combine(fi.DirectoryName, fi.GetNameWithoutExtension() + "_split_" + (i + 1).ToString() + fi.Extension);
                 //docNew.Save(File.Create(savePath));
-                
-                docNew.Close();                
+
+                docNew.Close();
                 docs.Add(savePath);
             }
 
-            docSource.Close();
-            return docs; 
+            docSource.Close(); 
+
+
+            //try
+            //{
+            //    //docSource.Save(fi.FullName);
+            //    docSource.Close();                    
+            //}
+            //catch (InvalidOperationException ex)
+            //{
+            //    //Thread.Sleep(5000);
+            //    docSource.Close();
+            //}
+
+            
+            return docs;
         }
     }
 

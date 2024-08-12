@@ -130,6 +130,12 @@ namespace PDF_Split
         {
             try
             {
+                if (string.IsNullOrEmpty(txtPages.Text))
+                {
+                    MessageBox.Show("Page Ranges cannot be blank."); 
+                    return;
+                }
+
                 List<string> DocPaths = PdfHelper.SplitPdf(txtFile.Text, txtPages.Text);
 
                 if (DocPaths.Count > 0) MessageBox.Show("PDF Split successfully.");
@@ -141,6 +147,11 @@ namespace PDF_Split
                 ResetForm();
 
                 this.DialogResult = DialogResult.OK;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                this.DialogResult = DialogResult.OK; 
             }
             catch (Exception ex)
             {
